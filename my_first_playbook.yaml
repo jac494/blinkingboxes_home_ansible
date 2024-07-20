@@ -1,0 +1,56 @@
+- name: My first play
+  hosts: all
+  tasks:
+   - name: Ping my hosts
+     ansible.builtin.ping:
+   - name: Print message
+     ansible.builtin.debug:
+       msg: Hello world
+   - name: Install base jac494 packages and ensure latest
+     ansible.builtin.dnf:
+       name: "{{ list_of_packages }}"
+       state: latest
+     become: true
+     vars:
+       list_of_packages:
+        - zsh
+        - git
+        - python3
+        - python3-pip
+        - tmux
+        - gdb
+   - name: make Projects directory for jac494
+     ansible.builtin.file:
+       path: /home/jac494/Projects
+       state: directory
+       mode: '0755'
+   - name: make Projects/dotfiles directory for jac494
+     ansible.builtin.file:
+       path: /home/jac494/Projects/dotfiles
+       state: directory
+       mode: '0755'
+   - name: clone jac494 dotfiles
+     ansible.builtin.git:
+       repo: https://github.com/jac494/dotfiles.git
+       dest: /home/jac494/Projects/dotfiles
+   - name: create dotfiles symlinks
+     ansible.builtin.file:
+       src: "/home/jac494/Projects/dotfiles/configs/{{ item.src }}"
+       dest: "/home/jac494/{{ item.dest }}"
+       state: link
+     loop:
+       - { src: zshrc, dest: .zshrc }
+       - { src: tmux.conf, dest: .tmux.conf }
+       - { src: vimrc, dest: .vimrc }
+       - { src: gdbinit, dest: .gdbinit }
+       - { src: gitconfig, dest: .gitconfig }
+   - name: create vim cache directory
+     ansible.builtin.file:
+       path: /home/jac494/.cache/vim
+       state: directory
+       mode: '0755'
+   - name: make sure zsh is set as jac494 shell
+     ansible.builtin.user:
+       name: jac494
+       shell: /usr/bin/zsh
+     become: true

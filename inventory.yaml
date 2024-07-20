@@ -1,0 +1,8 @@
+fedoramachines:
+  hosts:
+    hp-laptop:
+      ansible_host: 10.255.0.128
+    hpsff1:
+      ansible_host: 10.255.0.103
+    F38WS_001:
+      ansible_host: 10.255.0.221
