@@ -2,7 +2,12 @@ fedoramachines:
   hosts:
     hp-laptop:
       ansible_host: 10.255.0.128
-    hpsff1:
+    toyserver:
       ansible_host: 10.255.0.103
-    F38WS_001:
-      ansible_host: 10.255.0.221
+    primary_laptop:
+      ansible_host: 10.255.0.105
+
+vagrant_hosts:
+  hosts:
+    toyserver:
+      ansible_host: 10.255.0.103

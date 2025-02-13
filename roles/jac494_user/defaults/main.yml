@@ -1,0 +1,8 @@
+jac494_user__package_list:
+  - zsh
+  - git
+  - python3
+  - python3-pip
+  - tmux
+  - gdb
+  - virtualbox

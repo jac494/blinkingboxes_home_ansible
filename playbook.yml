@@ -19,6 +19,27 @@
         - python3-pip
         - tmux
         - gdb
+        - virtualbox
+        - node-exporter
+     when:
+       - ansible_pkg_mgr == "dnf"
+   - name: Install base jac494 packages and ensure latest
+     ansible.builtin.apt:
+       name: "{{ list_of_packages }}"
+       state: latest
+     become: true
+     vars:
+       list_of_packages:
+        - zsh
+        - git
+        - python3
+        - python3-pip
+        - tmux
+        - gdb
+        - virtualbox
+        - prometheus-node-exporter
+     when:
+       - ansible_pkg_mgr == "apt"  
    - name: make Projects directory for jac494
      ansible.builtin.file:
        path: /home/jac494/Projects
@@ -54,3 +75,8 @@
        name: jac494
        shell: /usr/bin/zsh
      become: true
+
+- name: Configure Vagrant Hosts
+  hosts: vagrant_hosts
+  roles:
+    - vagrant_host

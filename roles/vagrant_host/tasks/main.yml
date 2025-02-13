@@ -1,0 +1,27 @@
+- name: Vagrant | apt source
+  block:
+    - name: Hashicorp Vagrant Repo | no apt key
+      ansible.builtin.get_url:
+        url: https://apt.releases.hashicorp.com/gpg
+        dest: /usr/share/keyrings/hashicorp-archive-keyring.gpg
+        checksum: sha256:cafb01beac341bf2a9ba89793e6dd2468110291adfbb6c62ed11a0cde6c09029.
+      become: true
+
+    - name: Hashicorp Vagrant Repo | apt source
+      ansible.builtin.apt_repository:
+        repo: "deb [arch=amd64 signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com noble main"
+        state: present
+      become: true
+
+- name: Vagrant | Install
+  block:
+    - name: apt update
+      ansible.builtin.apt:
+        update_cache: yes
+      become: true
+    
+    - name: Vagrant install
+      ansible.builtin.apt:
+        name: vagrant
+        state: latest
+      become: true
