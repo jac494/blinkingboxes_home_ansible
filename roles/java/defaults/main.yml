@@ -1,0 +1,2 @@
+java__version: "21"
+java__package: "openjdk-{{ java__version }}-jdk"

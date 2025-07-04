@@ -11,3 +11,8 @@ vagrant_hosts:
   hosts:
     toyserver:
       ansible_host: 10.255.0.103
+
+jenkins_host:
+  hosts:
+    toyserver:
+      ansible_host: 10.255.0.103

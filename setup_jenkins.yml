@@ -1,0 +1,20 @@
+---
+- name: Setup Jenkins
+  hosts: jenkins_host
+  become: true
+  roles:
+    - jenkins_host
+
+  tasks:
+    - name: Ensure Jenkins is running and enabled
+      ansible.builtin.systemd:
+        name: jenkins
+        state: started
+        enabled: true
+
+    - name: Ensure Jenkins is accessible on port 8080
+      ansible.builtin.wait_for:
+        port: 8080
+        delay: 10
+        timeout: 300
+        state: started

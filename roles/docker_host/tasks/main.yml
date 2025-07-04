@@ -1,0 +1,26 @@
+---
+- name: Ensure Old Docker Packages Are Not Present
+  ansible.builtin.package:
+    name: "{{ item }}"
+    state: absent
+  loop:
+    - docker.io
+    - docker-compose
+    - docker-compose-v2
+    - docker-doc
+    - podman-docker
+
+- name: Add Docker GPG Key
+  ansible.builtin.apt_key:
+    url: "https://download.docker.com/linux/ubuntu/gpg"
+    state: present
+
+- name: Add Docker Repository to Apt Sources
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ docker__ubuntu_version_codename }} stable"
+    state: present
+
+- name: Install Docker
+  ansible.builtin.package:
+    name: docker-ce
+    state: present

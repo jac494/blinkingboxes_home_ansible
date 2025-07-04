@@ -1,0 +1,15 @@
+---
+- name: Add Jenkins GPG Key
+  ansible.builtin.apt_key:
+    url: "https://pkg.jenkins.io/debian/jenkins.io.key"
+    state: present
+
+- name: Add Jenkins Repository to Apt Sources
+  ansible.builtin.apt_repository:
+    repo: "deb http://pkg.jenkins.io/debian-stable binary/"
+    state: present
+
+- name: Install Jenkins
+  ansible.builtin.package:
+    name: jenkins
+    state: present
