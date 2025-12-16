@@ -15,49 +15,24 @@
 
 - name: create directories
   ansible.builtin.file:
-    path: "{{ directory_list }}"
+    path: "{{ drew_user__directory_list }}"
     state: directory
     mode: '0755'
   become: true
-  vars:
-    directory_list:
-    - /home/drew/Projects/dotfiles
-    - /home/drew/.config
-    - /home/drew/.local/bin
-    - /home/drew/.local/share
-    - /home/drew/.cache/vim
 
 - name: Install base packages and ensure latest
   ansible.builtin.dnf:
-    name: "{{ list_of_packages }}"
+    name: "{{ drew_user__all_packages_dnf }}"
     state: latest
   become: true
-  vars:
-    list_of_packages:
-    - zsh
-    - git
-    - tmux
-    - gdb
-    - virtualbox
-    - node-exporter
-    - cowsay
   when:
     - ansible_pkg_mgr == "dnf"
 
 - name: Install base packages and ensure latest
   ansible.builtin.apt:
-    name: "{{ list_of_packages }}"
+    name: "{{ drew_user__all_packages_apt }}"
     state: latest
   become: true
-  vars:
-    list_of_packages:
-    - zsh
-    - git
-    - tmux
-    - gdb
-    - virtualbox
-    - prometheus-node-exporter
-    - cowsay
   when:
     - ansible_pkg_mgr == "apt"
 

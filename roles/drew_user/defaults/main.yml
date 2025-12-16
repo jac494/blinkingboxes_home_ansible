@@ -1,0 +1,23 @@
+drew_user__directory_list:
+  - /home/drew/Projects/dotfiles
+  - /home/drew/.config
+  - /home/drew/.local/bin
+  - /home/drew/.local/share
+  - /home/drew/.cache/vim
+
+drew_user__common_packages:
+  - zsh
+  - git
+  - tmux
+  - gdb
+  - virtualbox
+  - cowsay
+
+drew_user__dnf_packages:
+  - node-exporter
+
+drew_user__apt_packages:
+  - prometheus-node-exporter
+
+drew_user__all_packages_dnf: "{{ drew_user__common_packages + drew_user__dnf_packages }}"
+drew_user__all_packages_apt: "{{ drew_user__common_packages + drew_user__apt_packages }}"
