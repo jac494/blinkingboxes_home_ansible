@@ -2,6 +2,8 @@
 
 # This script bootstraps Ansible on a fresh system.
 
+export ANSIBLE_CONFIG=ansible.cfg
+
 if [ "$(id -u)" -ne 0 ]; then
     echo "This script must be run as root. Use sudo." >&2
     exit 1

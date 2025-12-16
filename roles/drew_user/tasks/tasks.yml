@@ -39,6 +39,7 @@
     - gdb
     - virtualbox
     - node-exporter
+    - cowsay
   when:
     - ansible_pkg_mgr == "dnf"
 
@@ -55,6 +56,7 @@
     - gdb
     - virtualbox
     - prometheus-node-exporter
+    - cowsay
   when:
     - ansible_pkg_mgr == "apt"
 
