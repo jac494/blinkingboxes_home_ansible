@@ -1,0 +1,5 @@
+---
+- name: Ensure the drew user is set up
+  hosts: all
+  roles:
+    - drew_user

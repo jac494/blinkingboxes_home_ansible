@@ -1,0 +1,83 @@
+- name: Ping my hosts
+  ansible.builtin.ping:
+
+- name: Print message
+  ansible.builtin.debug:
+    msg: Hello world
+
+- name: Ensure the drew user exists
+  ansible.builtin.user:
+    name: drew
+    state: present
+    create_home: yes
+  become: true
+
+- name: create directories
+  ansible.builtin.file:
+    path: "{{ directory_list }}"
+    state: directory
+    mode: '0755'
+  become: true
+  vars:
+    directory_list:
+    - /home/drew/Projects/dotfiles
+    - /home/drew/.config
+    - /home/drew/.local/bin
+    - /home/drew/.local/share
+    - /home/drew/.cache/vim
+
+- name: Install base packages and ensure latest
+  ansible.builtin.dnf:
+    name: "{{ list_of_packages }}"
+    state: latest
+  become: true
+  vars:
+    list_of_packages:
+    - zsh
+    - git
+    - tmux
+    - gdb
+    - virtualbox
+    - node-exporter
+  when:
+    - ansible_pkg_mgr == "dnf"
+
+- name: Install base jac494 packages and ensure latest
+  ansible.builtin.apt:
+    name: "{{ list_of_packages }}"
+    state: latest
+  become: true
+  vars:
+    list_of_packages:
+    - zsh
+    - git
+    - tmux
+    - gdb
+    - virtualbox
+    - prometheus-node-exporter
+  when:
+    - ansible_pkg_mgr == "apt"
+
+- name: clone drew dotfiles
+  ansible.builtin.git:
+    repo: https://github.com/jac494/dotfiles.git
+    dest: /home/drew/Projects/dotfiles
+- name: create dotfiles symlinks
+
+  ansible.builtin.file:
+    src: "/home/drew/Projects/dotfiles/configs/{{ item.src }}"
+    dest: "/home/drew/{{ item.dest }}"
+    state: link
+  loop:
+    - { src: zshrc, dest: .zshrc }
+    - { src: tmux.conf, dest: .tmux.conf }
+    - { src: vimrc, dest: .vimrc }
+    - { src: gdbinit, dest: .gdbinit }
+    - { src: gitconfig, dest: .gitconfig }
+
+- name: make sure zsh is set as drew shell
+  ansible.builtin.user:
+    name: drew
+    shell: /usr/bin/zsh
+  become: true
+
