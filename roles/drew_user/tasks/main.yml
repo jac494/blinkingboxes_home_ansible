@@ -44,7 +44,7 @@
   when:
     - ansible_pkg_mgr == "dnf"
 
-- name: Install base jac494 packages and ensure latest
+- name: Install base packages and ensure latest
   ansible.builtin.apt:
     name: "{{ list_of_packages }}"
     state: latest
