@@ -18,6 +18,8 @@ drew_user__dnf_packages:
 
 drew_user__apt_packages:
   - prometheus-node-exporter
+  - python3-pip
+  - python3-django
 
 drew_user__all_packages_dnf: "{{ drew_user__common_packages + drew_user__dnf_packages }}"
 drew_user__all_packages_apt: "{{ drew_user__common_packages + drew_user__apt_packages }}"
