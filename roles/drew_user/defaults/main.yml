@@ -11,6 +11,7 @@ drew_user__common_packages:
   - tmux
   - gdb
   - virtualbox
+  - pre-commit
   - cowsay
 
 drew_user__dnf_packages:
