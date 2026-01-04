@@ -8,7 +8,7 @@ fedoramachines:
     toyserver:
       ansible_host: 10.255.0.103
     primary_laptop:
-      ansible_host: 10.255.0.105
+      ansible_host: 192.168.0.161
 
 vagrant_hosts:
   hosts:

@@ -13,6 +13,7 @@ drew_user__common_packages:
   - virtualbox
   - pre-commit
   - cowsay
+  - direnv
 
 drew_user__dnf_packages:
   - node-exporter
